@@ -1,59 +1,56 @@
-import React, { useState } from "react";
+import React from "react";
 import axios from "axios";
-import './Weather.css';
+import './Weather.css'; 
 
-export default function Engine() {
-  const [city, setCity] = useState("");
-  const [loaded, setLoaded] = useState(false);
-  const [weather, setWeather] = useState({});
 
-  function showTemperature(response) {
-    setLoaded(true);
-    setWeather({
-      temperature: response.data.main.temp,
-      description: response.data.weather[0].description,
-      humidity: response.data.main.humidity,
-      wind: response.data.wind.speed,
-      icon: `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
-    });
-  }
-
-  function handleSubmit(event) {
-    event.preventDefault();
-    let apiKey = "66561682a201042486582b7a342e4aa5";
-    let unit = "metric";
-    let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=${unit}`;
-    axios.get(apiUrl).then(showTemperature);
-  }
-
-  function updateCity(event) {
-    setCity(event.target.value);
-  }
-
-  let form = (
-    <form onSubmit={handleSubmit}>
-      <input type="search" placeholder="Type a city" onChange={updateCity} />
-      <button type="Submit">Search</button>
-    </form>
-  );
-
-  if (loaded) {
-    return (
-      <div>
-        {form}
+export default function Weather() {
+ return (
+   <div className="Weather">
+    <form>
+      <div className="row"> 
+        <div className="col-9"> 
+          <input type="search" placeholder="Enter a city" className="form-control" autoFocus="on" />
+        </div>
+        <div className="col-3"> 
+          <input type="submit" value="Search" className="btn btn-primary w-100" /> 
+        </div>
+       </div>
+     </form>
+     <h1>
+       New York
+     </h1>
+     <ul>
+       <li>
+         Wednesday 07:00
+       </li>
+       <li>
+         Mostly Cloudy
+       </li>
+     </ul>
+      <div className="row mt-3"> 
+        <div className="col-6"> 
+          <div className="clearfix">
+          <img src="https://ssl.gstatic.com/onebox/weather/64/partly_cloudy.png" alt="Mostly Cloudy" className="float-left" />
+            <div className="float-left"> 
+          <span className="temperature">6</span>
+          <span className="unit">°C</span> 
+            </div>
+          </div>
+        </div>
+        <div className="col-6"> 
         <ul>
-          <li>Temperature: {Math.round(weather.temperature)} C</li>
-          <li>Description: {weather.description} </li>
-          <li>Humidity: {Math.round(weather.humidity)}% </li>
-          <li>Wind: {Math.round(weather.wind)}km/h </li>
-          <li>
-            {" "}
-            <img src={weather.icon} alt={weather.description} />
-          </li>
-        </ul>
+           <li>
+             Preciptation: 15%
+           </li>
+           <li>
+             Humidity: 72%
+           </li>
+           <li>
+             Wind: 13km/h
+           </li>
+         </ul>
+       </div>
       </div>
-    );
-  } else {
-    return form;
-  }
-}
+   </div>
+ )
+} 
