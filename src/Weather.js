@@ -17,7 +17,7 @@ export default function Weather() {
        </div>
      </form>
      <h1>
-       New York
+       Rio
      </h1>
      <ul>
        <li>
